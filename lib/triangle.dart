@@ -25,7 +25,6 @@ class Triangle {
     return v;
   }
 
-
   factory Triangle.mm(double width, double height) => Triangle._internal(
     MeasurementSystem.mm.toMm(_ensurePositive(height)),
     MeasurementSystem.mm.toMm(_ensurePositive(width)),
@@ -62,14 +61,15 @@ class Triangle {
     MeasurementSystem.feet,
   );
 
-
   factory Triangle.from(
     double width,
     double height,
     MeasurementSystem system,
-  ) => Triangle._internal(system.toMm(_ensurePositive(width)), system.toMm(_ensurePositive(height)), system);
-
-
+  ) => Triangle._internal(
+    system.toMm(_ensurePositive(width)),
+    system.toMm(_ensurePositive(height)),
+    system,
+  );
 
   // area in mm2
   double get areaInMm2 => 0.5 * _widthInMm * _heightInMm;
@@ -78,15 +78,13 @@ class Triangle {
 
   double areaIn(MeasurementSystem ms) {
     final f = ms.mmPerUnit;
-      return areaInMm2/(f * f);
+    return areaInMm2 / (f * f);
   }
 
   // -------- Neues: getHeight(ms) und setHeight(ms, int value) --------
   double getHeight(MeasurementSystem ms) => ms.fromMm(_heightInMm);
 
   void setHeight(MeasurementSystem ms, int value) {
-
-    
     final validated = _ensurePositive(value.toDouble());
     _heightInMm = ms.toMm(validated);
   }
@@ -98,21 +96,14 @@ class Triangle {
     _widthInMm = ms.toMm(validated);
   }
 
-  
-
   double get area => areaIn(createdWith);
 
-  String get areaWithUnit =>
-      '${area.toStringAsFixed(4)} ${createdWith.name}²';
+  String get areaWithUnit => '${area.toStringAsFixed(4)} ${createdWith.name}²';
 
   @override
   String toString() {
     return 'Triangle(width: ${_widthInMm.toStringAsFixed(2)} mm, '
-          'height: ${_heightInMm.toStringAsFixed(2)} mm, '
-          'createdWith: ${createdWith.name}, area: ${areaInMm2.toStringAsFixed(2)} mm²)';
+        'height: ${_heightInMm.toStringAsFixed(2)} mm, '
+        'createdWith: ${createdWith.name}, area: ${areaInMm2.toStringAsFixed(2)} mm²)';
   }
 }
-
-
-
-
