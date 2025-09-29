@@ -20,78 +20,72 @@ class Triangle {
 
   Triangle._internal(this._widthInMm, this._heightInMm, this.createdWith);
 
-
-    static double _ensurePositive(double v) {
+  static double _ensurePositive(double v) {
     if (v <= 0) throw ArgumentError('Value must be > 0 (got $v).');
     return v;
   }
 
 
-  factory Triangle.cm(double width, double height) =>
-    Triangle._internal(MeasurementSystem.cm.toMm(_ensurePositive(width)),
-                      MeasurementSystem.cm.toMm(_ensurePositive(height)),
-                      MeasurementSystem.cm);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   factory Triangle.mm(double width, double height) => Triangle._internal(
-    MeasurementSystem.mm.toMm(width),
-    MeasurementSystem.mm.toMm(height),
+    MeasurementSystem.mm.toMm(_ensurePositive(height)),
+    MeasurementSystem.mm.toMm(_ensurePositive(width)),
     MeasurementSystem.mm,
   );
 
   factory Triangle.cm(double width, double height) => Triangle._internal(
-    MeasurementSystem.cm.toMm(width),
-    MeasurementSystem.cm.toMm(height),
+    MeasurementSystem.cm.toMm(_ensurePositive(width)),
+    MeasurementSystem.cm.toMm(_ensurePositive(height)),
     MeasurementSystem.cm,
   );
 
   factory Triangle.dm(double width, double height) => Triangle._internal(
-    MeasurementSystem.dm.toMm(width),
-    MeasurementSystem.dm.toMm(height),
+    MeasurementSystem.dm.toMm(_ensurePositive(width)),
+    MeasurementSystem.dm.toMm(_ensurePositive(height)),
     MeasurementSystem.dm,
   );
 
   factory Triangle.m(double width, double height) => Triangle._internal(
-    MeasurementSystem.m.toMm(width),
-    MeasurementSystem.m.toMm(height),
+    MeasurementSystem.m.toMm(_ensurePositive(width)),
+    MeasurementSystem.m.toMm(_ensurePositive(height)),
     MeasurementSystem.m,
   );
 
   factory Triangle.inch(double width, double height) => Triangle._internal(
-    MeasurementSystem.inch.toMm(width),
-    MeasurementSystem.inch.toMm(height),
+    MeasurementSystem.inch.toMm(_ensurePositive(width)),
+    MeasurementSystem.inch.toMm(_ensurePositive(height)),
     MeasurementSystem.inch,
   );
 
   factory Triangle.feet(double width, double height) => Triangle._internal(
-    MeasurementSystem.feet.toMm(width),
-    MeasurementSystem.feet.toMm(height),
+    MeasurementSystem.feet.toMm(_ensurePositive(width)),
+    MeasurementSystem.feet.toMm(_ensurePositive(height)),
     MeasurementSystem.feet,
   );
+
+
 
   factory Triangle.from(
     double width,
     double height,
     MeasurementSystem system,
-  ) => Triangle._internal(system.toMm(width), system.toMm(height), system);
+  ) => Triangle._internal(system.toMm(_ensurePositive(width)), system.toMm(_ensurePositive(height)), system);
+
+
 
   // area in mm2
   double get areaInMm2 => 0.5 * _widthInMm * _heightInMm;
 
-  double areaIn(MeasurementSystem system) =>
-      areaInMm2 / (system.mmPerUnit * system.mmPerUnit);
+  double areaIn(MeasurementSystem ms) {
+    final ms.mmPerUnit;
+      return areaInMm2/(f * f);
+  }
+
+
+
+
+
+
+
 
   double _validate(double value) {
     if (value <= 0) {
