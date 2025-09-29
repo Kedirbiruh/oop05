@@ -27,7 +27,10 @@ class Triangle {
   }
 
 
-  factory Triangle.cm
+  factory Triangle.cm(double width, double height) =>
+    Triangle._internal(MeasurementSystem.cm.toMm(_ensurePositive(width)),
+                      MeasurementSystem.cm.toMm(_ensurePositive(height)),
+                      MeasurementSystem.cm);
 
 
 
